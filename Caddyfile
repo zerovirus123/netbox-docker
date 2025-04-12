@@ -1,0 +1,10 @@
+0.0.0.0, ::0, localhost {  
+    # Replace with your domain name
+    reverse_proxy netbox:8080  # Proxy to the NetBox service running on port 8080
+    encode gzip zstd
+
+    tls /etc/ssl/private/cert.crt /etc/ssl/private/key.key
+    log {
+        level error
+    }
+}

@@ -1,0 +1,15 @@
+services:
+  netbox:
+    ports:
+      - 8000:8080
+  tls:
+    image: caddy:2-alpine
+    depends_on:
+      - netbox
+    volumes:
+      - ./localhost+2.pem:/etc/ssl/private/cert.crt:ro,z
+      - ./localhost+2-key.pem:/etc/ssl/private/key.key:ro,z
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    ports:
+      - 80:80   # Allows for http redirection
+      - 443:443
